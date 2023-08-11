@@ -2,10 +2,10 @@
 #include <time.h>
 #include <stdio.h>
 
-/** 
- * main - Determines if a random number is positive,negative or zero.
+/**
+ * main - Determine value of random numer if positive, negative, or zero.
  *
- * Return: 0 on Success
+ *Return: 0 on (Success)
  */
 int main(void)
 {
@@ -13,17 +13,18 @@ int main(void)
 
 	srand(time(0));
 	n = rand() - RAND_MAX / 2;
-	if (n > 0)
+	/* your code goes there */
+	if (n < 0)
 	{
-	printf("%d is positive\n", n);
+		printf("%d is %s\n",n, "negative");
 	}
-	else if (n < 0)
+	else if (n > 0)
 	{
-	printf("%d is negative\n", n);
+		printf("%d is %s\n",n, "positive");
 	}
 	else
 	{
-	printf("%d is zero\n", n);
+		printf("%d is %s\n",n, "zero");
 	}
 	return (0);
 }
