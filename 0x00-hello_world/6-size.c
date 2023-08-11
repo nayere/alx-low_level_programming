@@ -1,4 +1,4 @@
-# include <stdio.h>
+#include<stdio.h>
 /**
  * main - Entry piont
  *
@@ -7,10 +7,11 @@
 int main(void)
 {
 
-	print ("Size of char %d bytes(s)\n", size of(char));
-	print ("Size of int %d bytes(s)\n", size of(int));
-	print ("Size of long int %d bytes(s)\n", size of(long int));
-	print ("Size of float %d bytes(s)\n", size of(float));
+	printf("Size of char: %d byte(s)\n", sizeof(char));
+	printf("Size of int: %d byte(s)\n", sizeof(int));
+	printf("Size of long int: %d byte(s)\n", sizeof(long int));
+	printf("Size of long long int: %d byte(s)\n", sizeof(long long int));
+	print ("Size of float: %d byte(s)\n", sizeof(float));
 
 	return (0);
 
