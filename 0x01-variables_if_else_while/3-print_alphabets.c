@@ -19,6 +19,6 @@ int main (void)
                 putchar(upperCase);
                 upperCase += 1;
         }
-	 pitchar('\n');
+	 putchar('\n');
 	 return (0);
 }
