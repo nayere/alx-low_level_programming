@@ -17,7 +17,7 @@ lowerCase += 1;
 else
 {
 putchar(lowerCase);
-lowerCase =+ 1;
+lowerCase += 1;
 }
 }
 putchar('\n');
