@@ -2,24 +2,35 @@
 /**
  * main - check the code
  *
- * Return: Always 0.
+ * Return: Always 0. 
  */
+int addIntegers(int a, int b) {
+    int result;
 
-int add(int a, int b) {
-    return a + b;
+    if (a >= 0) {
+        if (b >= 0) {
+            result = a + b;
+        } else {
+            result = a - (-b);
+        }
+    } else {
+        if (b >= 0) {
+            result = b - (-a);
+        } else {
+            result = -(a + b);
+        }
+    }
+
+    return result;
 }
 
 int main() {
-    int num1, num2;
-    
-    printf("Enter the first integer: ");
-    scanf("%d", &num1);
-    
-    printf("Enter the second integer: ");
-    scanf("%d", &num2);
-    
-    int result = add(num1, num2);
-    printf("The sum is: %d\n", result);
-    
+    int num1 = 5;
+    int num2 = -3;
+
+    int sum = addIntegers(num1, num2);
+
+    printf("Sum: %d\n", sum);
+
     return 0;
 }
