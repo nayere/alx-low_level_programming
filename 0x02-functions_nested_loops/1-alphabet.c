@@ -2,7 +2,7 @@
 /**
  * main -  Prints the alphabet, in lowercase, followed by a new line.
  *
- * Return: Always 0.
+ * Return _putchar.
  */
 void print_alphabet(void)
 {
