@@ -14,18 +14,13 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 
 	if (!ht || !key)
 		return (0);
-	/* first I need to know where must be indexed the new node in the ht */
 	index = key_index((const unsigned char *)key, ht->size);
-	/* hashnodes points to the array of the ht with the respective idx */
 	hash_nodes = ht->array[index];
-	/* in case of key/value update */
 	while (hash_nodes)
 	{
 		if (strcmp(hash_nodes->key, key) == 0)
 		{
-			/* delete the actual value in the hash table */
 			free(hash_nodes->value);
-			/* the passed value must be duplicated, task cond. */
 			hash_nodes->value = strdup(value);
 			if (hash_nodes->value == NULL)
 				return (0);
@@ -33,7 +28,6 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 		}
 		hash_nodes = hash_nodes->next;
 	}
-	/* in case of adding a new node to the hash table */
 	new_node = malloc(sizeof(hash_node_t));
 	if (new_node == NULL)
 		return (0);
