@@ -1,54 +1,48 @@
 #include "hash_tables.h"
-
 /**
-* hash_table_set - function that adds an element to the hash table
-* @ht: pointer to hash table
-* @key: key to add the element
-* @value: value to add the element
-*
-* Return: 1 if it succeeded, 0 otherwise
-*/
-
+ * hash_table_set - adds an element to the hash table
+ * @ht: the hashs table I want to add or update the key/value to
+ * @key: is the str passed to djb2 (tha key )
+ * @value: value associated with the key
+ * Return: 1 if succeeded or 0 if fail
+ */
 int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 {
-unsigned long int index = 0;
-hash_node_t *new_node = NULL, *old_head = NULL;
+	hash_node_t *hash_nodes;
+	hash_node_t *new_node;
+	unsigned long int index;
 
-if (key == NULL || value == NULL || ht == NULL)
-	return (0);
-if (strlen(key) == 0)
-	return (0);
-new_node = (hash_node_t *) malloc(sizeof(hash_node_t));
-if (new_node == NULL)
-	return (0);
-index = key_index((const unsigned char *) key, ht->size);
-new_node->key = (char *) strdup(key);
-new_node->value = (char *) strdup(value);
-new_node->next = NULL;
-if ((ht->array)[index] == NULL)
-{
-	(ht->array)[index] = new_node;
-	return (1);
-}
-else
-{
-	old_head = (ht->array)[index];
-	while (old_head)
+	if (!ht || !key)
+		return (0);
+	/* first I need to know where must be indexed the new node in the ht */
+	index = key_index((const unsigned char *)key, ht->size);
+	/* hashnodes points to the array of the ht with the respective idx */
+	hash_nodes = ht->array[index];
+	/* in case of key/value update */
+	while (hash_nodes)
 	{
-		if (strcmp(old_head->key, key) == 0)
+		if (strcmp(hash_nodes->key, key) == 0)
 		{
-			free(old_head->value);
-			old_head->value = (char *) strdup(value);
-			free(new_node->key);
-			free(new_node->value);
-			free(new_node);
+			/* delete the actual value in the hash table */
+			free(hash_nodes->value);
+			/* the passed value must be duplicated, task cond. */
+			hash_nodes->value = strdup(value);
+			if (hash_nodes->value == NULL)
+				return (0);
 			return (1);
 		}
-		old_head = old_head->next;
+		hash_nodes = hash_nodes->next;
 	}
-	old_head = (ht->array)[index];i
-	new_node->next = old_head;
-	(ht->array)[index] = new_node;
+	/* in case of adding a new node to the hash table */
+	new_node = malloc(sizeof(hash_node_t));
+	if (new_node == NULL)
+		return (0);
+	new_node->key = strdup(key);
+	new_node->value = strdup(value);
+	if (new_node->value == NULL)
+		return (0);
+	new_node->next = ht->array[index];
+	ht->array[index] = new_node;
 	return (1);
 }
-}
+
