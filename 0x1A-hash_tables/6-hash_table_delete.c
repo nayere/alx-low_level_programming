@@ -1,36 +1,26 @@
-#include "hash_tables.h"
+#include <stdlib.h>
+#include "hash_table.h" // Assuming hash_table.h contains the structure definitions and function prototypes related to hash table
 
-/**
- * hash_table_delete - short description
- *
- * Description: long description
- *
- * @ht: argument_1 description
- *
- * Return: return description
- */
+void hash_table_delete(hash_table_t *ht) {
+    if (ht == NULL) {
+        return; // If the hash table is already NULL, no need to delete
+    }
 
-void hash_table_delete(hash_table_t *ht)
-{
-	hash_node_t *current_node, *previous_node;
-	unsigned long int array_index, has_nodes;
+    // Free each node in the hash table
+    for (unsigned long int i = 0; i < ht->size; i++) {
+        hash_node_t *node = ht->array[i];
+        while (node != NULL) {
+            hash_node_t *temp = node;
+            node = node->next;
+            free(temp->key); // Free the key
+            free(temp->value); // Free the value
+            free(temp); // Free the node
+        }
+    }
 
-	for (array_index = 0; array_index < ht->size; array_index++)
-	{
-		has_nodes = 0;
-		current_node = (ht->array)[array_index];
-		while (current_node)
-		{
-			has_nodes = 1;
-			previous_node = current_node;
-			current_node = current_node->next;
-			free(previous_node->key);
-			free(previous_node->value);
-			free(previous_node);
-		}
-		if (!has_nodes)
-			free((ht->array)[array_index]);
-	}
-	free(ht->array);
-	free(ht);
+    // Free the array of pointers
+    free(ht->array);
+
+    // Free the hash table structure itself
+    free(ht);
 }
